@@ -5,7 +5,6 @@
 ## Table of Contents 📚
 - [Description](#description)
 - [Installation](#installation)
-  - [Installation Steps](#installation-steps)
 - [Usage](#usage)
 - [Credentials](#credentials)
 - [Contributing](#contributing)
@@ -22,7 +21,7 @@ This script automates the installation process for [DVWA (Damn Vulnerable Web Ap
 
 ## Installation 🛠️
 ```bash
-sudo bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/IamCarron/DVWA-Script/main/Install-DVWA.sh)"
+sudo bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/trvl009/DVWA-Script-Arch/main/Install-DVWA.sh)"
 ```
 
 **If you are willing to use root and empty password for the execution of MySQL commands the script must be run as root user.**
