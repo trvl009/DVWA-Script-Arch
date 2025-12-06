@@ -15,6 +15,8 @@
 
 This script automates the installation process for [DVWA (Damn Vulnerable Web Application)](https://github.com/digininja/DVWA), a web application intentionally designed to be vulnerable to various attacks. DVWA is a tool for learning and practicing web application security.
 
+*This fork is currently under development.*
+
 **This is a fork of [IamCarron's](https://github.com/IamCarron) script for Arch-based systems.**
 
 ---
@@ -50,4 +52,4 @@ Contributions are welcome! If you encounter any issues or have suggestions for i
 
 ## License 📄
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE). All rights belong to [IamCarron](https://github.com/IamCarron), as he is the original author.
