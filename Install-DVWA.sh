@@ -20,8 +20,8 @@ en_strings=(
     ["error_not_root"]="\033[91mThis script must be run by the root user.\033[0m"
     ["welcome_message"]="Welcome to the DVWA setup!"
     ["script_name"]="Script Name: Install-DVWA.sh "
-    ["author"]="Author: IamCarron "
-    ["github_repo"]="Github Repo: https://github.com/IamCarron/DVWA-Script"
+    ["author"]="Author: IamCarron. Arch fork author: trvl009"
+    ["github_repo"]="Fork GitHub Repo: https://github.com/trvl009/DVWA-Script-Arch"
     ["installer_version"]="Installer Version: 2.0 "
     ["package_not_installed"]="\033[91m%s is not installed. Installing it now...\033[0m"
     ["package_installed"]="\033[92m%s is installed!\033[0m"
@@ -62,8 +62,8 @@ es_strings=(
     ["error_not_root"]="\033[91mEste script debe ejecutarse como usuario root.\033[0m"
     ["welcome_message"]="¡Bienvenido al instalador de DVWA!"
     ["script_name"]="Nombre del Script: Install-DVWA.sh "
-    ["author"]="Autor: IamCarron "
-    ["github_repo"]="GitHub Repo: https://github.com/IamCarron/DVWA-Script"
+    ["author"]="Autor: IamCarron. Arch fork autor: trvl009"
+    ["github_repo"]="Fork GitHub Repo: https://github.com/trvl009/DVWA-Script-Arch"
     ["installer_version"]="Versión del Instalador: 2.0 "
     ["package_not_installed"]="\033[91m%s no está instalado. Instalándolo ahora...\033[0m"
     ["package_installed"]="\033[92m%s !Está instalado!\033[0m"
@@ -104,8 +104,8 @@ fr_strings=(
     ["error_not_root"]="\033[91mCe script doit être exécuté par l'utilisateur root.\033[0m"
     ["welcome_message"]="Bienvenue à la configuration de DVWA !"
     ["script_name"]="Nom du script : Install-DVWA.sh "
-    ["author"]="Auteur : IamCarron "
-    ["github_repo"]="Repo Github : https://github.com/IamCarron/DVWA-Script"
+    ["author"]="Auteur : IamCarron. Fork auteur: trvl009"
+    ["github_repo"]="Arch fork repo Github: https://github.com/trvl009/DVWA-Script-Arch"
     ["installer_version"]="Version de l'installateur : 2.0 "
     ["package_not_installed"]="\033[91m%s n'est pas installé. Installation en cours...\033[0m"
     ["package_installed"]="\033[92m%s est installé !\033[0m"
@@ -218,7 +218,7 @@ echo
 check_program() {
     if ! dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q "install ok installed"; then
         echo -e "$(printf "$(get_translation "package_not_installed" "$lang")" "$1")"
-        apt install -y "$1"
+        pacman -S "$1"
     else
         echo -e "$(printf "$(get_translation "package_installed" "$lang")" "$1")"
     fi
@@ -303,18 +303,16 @@ sql_commands() {
 
 # Update repositories
 echo -e "$(get_translation "updating_repos" "$lang")"
-apt update
+pacman -Sy
 
 # Check if the dependencies are installed
 echo -e "$(get_translation "verifying_dependencies" "$lang")"
 
-check_program apache2
-check_program mariadb-server
-check_program mariadb-client
+check_program apache
 check_program php
-check_program php-mysql
+check_program php-apache
 check_program php-gd
-check_program libapache2-mod-php
+check_program mariadb
 check_program git
 
 # Download DVWA repository from GitHub
