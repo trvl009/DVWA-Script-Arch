@@ -216,9 +216,9 @@ echo
 
 # Function to verify the existence of a program
 check_program() {
-    if ! dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q "install ok installed"; then
+    if ! pacman -Q "$1" &>/dev/null; then
         echo -e "$(printf "$(get_translation "package_not_installed" "$lang")" "$1")"
-        pacman -S "$1"
+        pacman -S --noconfirm "$1"
     else
         echo -e "$(printf "$(get_translation "package_installed" "$lang")" "$1")"
     fi
@@ -387,8 +387,8 @@ chmod -R 755 /var/www/html/DVWA
 sleep 2
 
 echo -e "$(get_translation "configuring_php" "$lang")"
-# Trying to find the php.ini file in the Apache folder
-php_config_file_apache="/etc/php/$(php -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;')/apache2/php.ini"
+# Trying to find the php.ini file used by Apache (php-apache module)
+php_config_file_apache="/etc/php/php.ini"
 
 # Trying to find the php.ini file in the FPM folder
 php_config_file_fpm="/etc/php/$(php -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;')/fpm/php.ini"
@@ -414,19 +414,19 @@ fi
 sleep 2
 
 # Check if Apache is already enabled
-if systemctl is-enabled apache2 &>/dev/null; then
+if systemctl is-enabled httpd.service &>/dev/null; then
     echo -e "$(get_translation "apache_already_enabled" "$lang")"
 else
     # Enable Apache
     echo -e "$(get_translation "enabling_apache" "$lang")"
-    systemctl enable apache2 &>/dev/null
+    systemctl enable httpd.service &>/dev/null
     sleep 2
 fi
 
 # Apache restart
 echo -e "$(get_translation "restarting_apache" "$lang")"
-systemctl enable apache2 &>/dev/null
-systemctl restart apache2 &>/dev/null
+systemctl enable httpd.service &>/dev/null
+systemctl restart httpd.service &>/dev/null
 sleep 2
 
 echo -e "$(get_translation "installation_success" "$lang")"
